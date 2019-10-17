@@ -1,0 +1,66 @@
+{
+    "name": "Network",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "gobalTTL",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "unicast",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "networkKey",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "keyIndex",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "flagRefreshPhase",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "flagIVUpdate",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "ivIndex",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "appKey",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "facility",
+            "otherEntityName": "facility",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "meshGroup",
+            "otherEntityRelationshipName": "network",
+            "relationshipName": "group"
+        }
+    ],
+    "changelogDate": "20191017204157",
+    "entityTableName": "network",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "inn"
+}

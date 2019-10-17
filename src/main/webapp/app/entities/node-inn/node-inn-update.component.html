@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-node-inn-heading">Create or edit a Node</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_provisionTime">Provision Time</label>
+                    <div class="d-flex">
+                        <input id="field_provisionTime" type="datetime-local" class="form-control" name="provisionTime" formControlName="provisionTime" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nodeIdentifier">Node Identifier</label>
+                    <input type="text" class="form-control" name="nodeIdentifier" id="field_nodeIdentifier"
+                           formControlName="nodeIdentifier"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_unicastAdress">Unicast Adress</label>
+                    <input type="number" class="form-control" name="unicastAdress" id="field_unicastAdress"
+                           formControlName="unicastAdress"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_features">Features</label>
+                    <input type="number" class="form-control" name="features" id="field_features"
+                           formControlName="features"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_appKey">App Key</label>
+                    <input type="text" class="form-control" name="appKey" id="field_appKey"
+                           formControlName="appKey"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_meshGroup">Mesh Group</label>
+                    <select class="form-control" id="field_meshGroup" name="meshGroup" formControlName="meshGroup">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="meshGroupOption.id === editForm.get('meshGroup').value?.id ? editForm.get('meshGroup').value : meshGroupOption" *ngFor="let meshGroupOption of meshgroups; trackBy: trackMeshGroupById">{{meshGroupOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

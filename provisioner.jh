@@ -1,0 +1,90 @@
+entity Customer {
+	name String,
+    address String
+}
+
+entity AppUser {
+	name String required,
+    password String required,
+    email String,
+    domain String
+}
+
+entity Facility {
+	name String,
+    streetAddress String,
+	postalCode String,
+	city String,
+	country String
+}
+
+entity Role {
+	name String,
+    description String
+}
+
+
+entity Network {
+	name String,
+    gobalTTL Integer,
+    unicast Integer,
+	networkKey String,
+    keyIndex Integer,
+    flagRefreshPhase Integer,
+    flagIVUpdate Integer,
+    ivIndex Integer,
+	appKey String
+}
+
+entity MeshGroup {
+	name String,
+    virtual Boolean
+}
+
+entity Node {
+	name String,
+    provisionTime ZonedDateTime,
+    nodeIdentifier String,
+    unicastAdress Integer
+    features Integer,
+    appKey String
+}
+
+entity Element {
+	name String
+}
+
+entity Model {
+    name String,
+    uuid Integer
+}
+
+entity State {
+    name String,
+    value String,
+    uuid Integer
+}
+
+
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Customer{facility} to Facility,
+	Customer{user} to AppUser,
+    AppUser{role} to Role,
+    Facility{network} to Network,
+    Network{group} to MeshGroup,
+    MeshGroup{node} to Node,
+    Node{element} to Element,
+    Element{model} to Model,
+    Model{state} to State
+}
+
+
+
+// Set pagination options
+paginate * with infinite-scroll
+
+
+// Set an angular suffix
+angularSuffix * with inn
