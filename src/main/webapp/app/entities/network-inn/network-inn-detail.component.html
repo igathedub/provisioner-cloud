@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="network">
+            <h2><span>Network</span> {{network.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{network.name}}</span>
+                </dd>
+                <dt><span>Gobal TTL</span></dt>
+                <dd>
+                    <span>{{network.gobalTTL}}</span>
+                </dd>
+                <dt><span>Unicast</span></dt>
+                <dd>
+                    <span>{{network.unicast}}</span>
+                </dd>
+                <dt><span>Network Key</span></dt>
+                <dd>
+                    <span>{{network.networkKey}}</span>
+                </dd>
+                <dt><span>Key Index</span></dt>
+                <dd>
+                    <span>{{network.keyIndex}}</span>
+                </dd>
+                <dt><span>Flag Refresh Phase</span></dt>
+                <dd>
+                    <span>{{network.flagRefreshPhase}}</span>
+                </dd>
+                <dt><span>Flag IV Update</span></dt>
+                <dd>
+                    <span>{{network.flagIVUpdate}}</span>
+                </dd>
+                <dt><span>Iv Index</span></dt>
+                <dd>
+                    <span>{{network.ivIndex}}</span>
+                </dd>
+                <dt><span>App Key</span></dt>
+                <dd>
+                    <span>{{network.appKey}}</span>
+                </dd>
+                <dt><span>Facility</span></dt>
+                <dd>
+                    <div *ngIf="network.facility">
+                        <a [routerLink]="['/facility-inn', network.facility?.id, 'view']">{{network.facility?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/network-inn', network.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

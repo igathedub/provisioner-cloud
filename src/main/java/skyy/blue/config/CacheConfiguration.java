@@ -42,6 +42,25 @@ public class CacheConfiguration {
             createCache(cm, skyy.blue.domain.User.class.getName());
             createCache(cm, skyy.blue.domain.Authority.class.getName());
             createCache(cm, skyy.blue.domain.User.class.getName() + ".authorities");
+            createCache(cm, skyy.blue.domain.Customer.class.getName());
+            createCache(cm, skyy.blue.domain.Customer.class.getName() + ".facilities");
+            createCache(cm, skyy.blue.domain.Customer.class.getName() + ".users");
+            createCache(cm, skyy.blue.domain.AppUser.class.getName());
+            createCache(cm, skyy.blue.domain.AppUser.class.getName() + ".roles");
+            createCache(cm, skyy.blue.domain.Facility.class.getName());
+            createCache(cm, skyy.blue.domain.Facility.class.getName() + ".networks");
+            createCache(cm, skyy.blue.domain.Role.class.getName());
+            createCache(cm, skyy.blue.domain.Network.class.getName());
+            createCache(cm, skyy.blue.domain.Network.class.getName() + ".groups");
+            createCache(cm, skyy.blue.domain.MeshGroup.class.getName());
+            createCache(cm, skyy.blue.domain.MeshGroup.class.getName() + ".nodes");
+            createCache(cm, skyy.blue.domain.Node.class.getName());
+            createCache(cm, skyy.blue.domain.Node.class.getName() + ".elements");
+            createCache(cm, skyy.blue.domain.Element.class.getName());
+            createCache(cm, skyy.blue.domain.Element.class.getName() + ".models");
+            createCache(cm, skyy.blue.domain.Model.class.getName());
+            createCache(cm, skyy.blue.domain.Model.class.getName() + ".states");
+            createCache(cm, skyy.blue.domain.State.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

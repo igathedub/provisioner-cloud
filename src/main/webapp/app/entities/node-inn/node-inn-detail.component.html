@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="node">
+            <h2><span>Node</span> {{node.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{node.name}}</span>
+                </dd>
+                <dt><span>Provision Time</span></dt>
+                <dd>
+                    <span>{{node.provisionTime}}</span>
+                </dd>
+                <dt><span>Node Identifier</span></dt>
+                <dd>
+                    <span>{{node.nodeIdentifier}}</span>
+                </dd>
+                <dt><span>Unicast Adress</span></dt>
+                <dd>
+                    <span>{{node.unicastAdress}}</span>
+                </dd>
+                <dt><span>Features</span></dt>
+                <dd>
+                    <span>{{node.features}}</span>
+                </dd>
+                <dt><span>App Key</span></dt>
+                <dd>
+                    <span>{{node.appKey}}</span>
+                </dd>
+                <dt><span>Mesh Group</span></dt>
+                <dd>
+                    <div *ngIf="node.meshGroup">
+                        <a [routerLink]="['/mesh-group-inn', node.meshGroup?.id, 'view']">{{node.meshGroup?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/node-inn', node.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+{
+    "name": "Model",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uuid",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "element",
+            "otherEntityName": "element",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "state",
+            "otherEntityRelationshipName": "model",
+            "relationshipName": "state"
+        }
+    ],
+    "changelogDate": "20191017204201",
+    "entityTableName": "model",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "inn"
+}

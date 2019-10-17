@@ -1,0 +1,50 @@
+{
+    "name": "Facility",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "streetAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "postalCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "city",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "country",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "network",
+            "otherEntityRelationshipName": "facility",
+            "relationshipName": "network"
+        }
+    ],
+    "changelogDate": "20191017204155",
+    "entityTableName": "facility",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "inn"
+}

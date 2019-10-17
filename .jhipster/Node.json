@@ -1,0 +1,54 @@
+{
+    "name": "Node",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "provisionTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "nodeIdentifier",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "unicastAdress",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "features",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "appKey",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "meshGroup",
+            "otherEntityName": "meshGroup",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "element",
+            "otherEntityRelationshipName": "node",
+            "relationshipName": "element"
+        }
+    ],
+    "changelogDate": "20191017204159",
+    "entityTableName": "node",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "inn"
+}
