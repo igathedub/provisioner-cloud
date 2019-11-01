@@ -362,6 +362,11 @@
                             <artifactId>jaxb-runtime</artifactId>
                             <version>${jaxb-runtime.version}</version>
                         </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.10</version>
+                        </path>
                         <!-- jhipster-needle-maven-add-annotation-processor -->
                     </annotationProcessorPaths>
                 </configuration>
@@ -1039,6 +1044,12 @@
                 <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-jpamodelgen</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <version>1.18.10</version>
+                    <scope>provided</scope>
                 </dependency>
             </dependencies>
         </profile>
