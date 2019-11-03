@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 })
 @JsonPOJOBuilder(withPrefix="")
 @SuperBuilder
-public class AppKeyIndex {
+public class KeyIndex {
 
     @JsonProperty("index")
     public Long index;

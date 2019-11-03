@@ -40,13 +40,13 @@ public class Node {
     @JsonProperty("configComplete")
     public Boolean configComplete;
     @JsonProperty("netKeys")
-    public List<NetKeyIndex> netKeyIndices = null;
+    public List<KeyIndex> netKeyIndices = null;
     @JsonProperty("defaultTTL")
     public Long defaultTTL;
     @JsonProperty("cid")
     public String cid;
     @JsonProperty("appKeys")
-    public List<AppKeyIndex> appKeyIndices = null;
+    public List<KeyIndex> appKeyIndices = null;
     @JsonProperty("blacklisted")
     public Boolean blacklisted;
     @JsonProperty("UUID")

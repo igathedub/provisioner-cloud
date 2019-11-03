@@ -21,15 +21,15 @@ import lombok.experimental.SuperBuilder;
 public class Publish {
 
     @JsonProperty("index")
-    public Long index;
+    public int index;
     @JsonProperty("credentials")
-    public Long credentials;
+    public int credentials;
     @JsonProperty("ttl")
-    public Long ttl;
+    public int ttl;
     @JsonProperty("retransmit")
     public Retransmit retransmit;
     @JsonProperty("period")
-    public Long period;
+    public int period;
     @JsonProperty("address")
     public String address;
 
