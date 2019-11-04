@@ -9,14 +9,18 @@
                 <dd>
                     <span>{{meshGroup.name}}</span>
                 </dd>
-                <dt><span>Virtual</span></dt>
+                <dt><span>Address</span></dt>
                 <dd>
-                    <span>{{meshGroup.virtual}}</span>
+                    <span>{{meshGroup.address}}</span>
                 </dd>
-                <dt><span>Network</span></dt>
+                <dt><span>Parent Address</span></dt>
                 <dd>
-                    <div *ngIf="meshGroup.network">
-                        <a [routerLink]="['/network-inn', meshGroup.network?.id, 'view']">{{meshGroup.network?.id}}</a>
+                    <span>{{meshGroup.parentAddress}}</span>
+                </dd>
+                <dt><span>Network Configuration</span></dt>
+                <dd>
+                    <div *ngIf="meshGroup.networkConfiguration">
+                        <a [routerLink]="['/network-configuration', meshGroup.networkConfiguration?.id, 'view']">{{meshGroup.networkConfiguration?.id}}</a>
                     </div>
                 </dd>
             </dl>

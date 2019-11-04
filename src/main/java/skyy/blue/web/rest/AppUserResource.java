@@ -18,7 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -53,7 +52,7 @@ public class AppUserResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/app-users")
-    public ResponseEntity<AppUser> createAppUser(@Valid @RequestBody AppUser appUser) throws URISyntaxException {
+    public ResponseEntity<AppUser> createAppUser(@RequestBody AppUser appUser) throws URISyntaxException {
         log.debug("REST request to save AppUser : {}", appUser);
         if (appUser.getId() != null) {
             throw new BadRequestAlertException("A new appUser cannot already have an ID", ENTITY_NAME, "idexists");
@@ -74,7 +73,7 @@ public class AppUserResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/app-users")
-    public ResponseEntity<AppUser> updateAppUser(@Valid @RequestBody AppUser appUser) throws URISyntaxException {
+    public ResponseEntity<AppUser> updateAppUser(@RequestBody AppUser appUser) throws URISyntaxException {
         log.debug("REST request to update AppUser : {}", appUser);
         if (appUser.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

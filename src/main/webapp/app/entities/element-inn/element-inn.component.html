@@ -19,6 +19,8 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="index"><span>Index</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="location"><span>Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="node.id"><span>Node</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
@@ -27,6 +29,8 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let element of elements ;trackBy: trackId">
                 <td><a [routerLink]="['/element-inn', element.id, 'view' ]">{{element.id}}</a></td>
+                <td>{{element.index}}</td>
+                <td>{{element.location}}</td>
                 <td>{{element.name}}</td>
                 <td>
                     <div *ngIf="element.node">

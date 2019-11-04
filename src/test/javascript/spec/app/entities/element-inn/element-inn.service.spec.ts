@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ElementInnService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new ElementInn(0, 'AAAAAAA');
+      elemDefault = new ElementInn(0, 0, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,6 +56,8 @@ describe('Service Tests', () => {
       it('should update a ElementInn', () => {
         const returnedFromService = Object.assign(
           {
+            index: 1,
+            location: 'BBBBBB',
             name: 'BBBBBB'
           },
           elemDefault
@@ -74,6 +76,8 @@ describe('Service Tests', () => {
       it('should return a list of ElementInn', () => {
         const returnedFromService = Object.assign(
           {
+            index: 1,
+            location: 'BBBBBB',
             name: 'BBBBBB'
           },
           elemDefault

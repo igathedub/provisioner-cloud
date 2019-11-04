@@ -1,8 +1,6 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { NodeInnService } from 'app/entities/node-inn/node-inn.service';
 import { INodeInn, NodeInn } from 'app/shared/model/node-inn.model';
 
@@ -13,7 +11,6 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: INodeInn;
     let expectedResult;
-    let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
@@ -22,19 +19,27 @@ describe('Service Tests', () => {
       injector = getTestBed();
       service = injector.get(NodeInnService);
       httpMock = injector.get(HttpTestingController);
-      currentDate = moment();
 
-      elemDefault = new NodeInn(0, 'AAAAAAA', currentDate, 'AAAAAAA', 0, 0, 'AAAAAAA');
+      elemDefault = new NodeInn(
+        0,
+        'AAAAAAA',
+        false,
+        0,
+        'AAAAAAA',
+        false,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA'
+      );
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign(
-          {
-            provisionTime: currentDate.format(DATE_TIME_FORMAT)
-          },
-          elemDefault
-        );
+        const returnedFromService = Object.assign({}, elemDefault);
         service
           .find(123)
           .pipe(take(1))
@@ -48,17 +53,11 @@ describe('Service Tests', () => {
       it('should create a NodeInn', () => {
         const returnedFromService = Object.assign(
           {
-            id: 0,
-            provisionTime: currentDate.format(DATE_TIME_FORMAT)
+            id: 0
           },
           elemDefault
         );
-        const expected = Object.assign(
-          {
-            provisionTime: currentDate
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
         service
           .create(new NodeInn(null))
           .pipe(take(1))
@@ -71,22 +70,23 @@ describe('Service Tests', () => {
       it('should update a NodeInn', () => {
         const returnedFromService = Object.assign(
           {
+            unicastAddress: 'BBBBBB',
+            configComplete: true,
+            defaultTTL: 1,
+            cid: 'BBBBBB',
+            blacklisted: true,
+            uUID: 'BBBBBB',
+            security: 'BBBBBB',
+            crpl: 'BBBBBB',
             name: 'BBBBBB',
-            provisionTime: currentDate.format(DATE_TIME_FORMAT),
-            nodeIdentifier: 'BBBBBB',
-            unicastAdress: 1,
-            features: 1,
-            appKey: 'BBBBBB'
+            deviceKey: 'BBBBBB',
+            vid: 'BBBBBB',
+            pid: 'BBBBBB'
           },
           elemDefault
         );
 
-        const expected = Object.assign(
-          {
-            provisionTime: currentDate
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
         service
           .update(expected)
           .pipe(take(1))
@@ -99,21 +99,22 @@ describe('Service Tests', () => {
       it('should return a list of NodeInn', () => {
         const returnedFromService = Object.assign(
           {
+            unicastAddress: 'BBBBBB',
+            configComplete: true,
+            defaultTTL: 1,
+            cid: 'BBBBBB',
+            blacklisted: true,
+            uUID: 'BBBBBB',
+            security: 'BBBBBB',
+            crpl: 'BBBBBB',
             name: 'BBBBBB',
-            provisionTime: currentDate.format(DATE_TIME_FORMAT),
-            nodeIdentifier: 'BBBBBB',
-            unicastAdress: 1,
-            features: 1,
-            appKey: 'BBBBBB'
+            deviceKey: 'BBBBBB',
+            vid: 'BBBBBB',
+            pid: 'BBBBBB'
           },
           elemDefault
         );
-        const expected = Object.assign(
-          {
-            provisionTime: currentDate
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
         service
           .query(expected)
           .pipe(

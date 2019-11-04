@@ -156,42 +156,6 @@ public class AppUserResourceIT {
 
     @Test
     @Transactional
-    public void checkNameIsRequired() throws Exception {
-        int databaseSizeBeforeTest = appUserRepository.findAll().size();
-        // set the field null
-        appUser.setName(null);
-
-        // Create the AppUser, which fails.
-
-        restAppUserMockMvc.perform(post("/api/app-users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appUser)))
-            .andExpect(status().isBadRequest());
-
-        List<AppUser> appUserList = appUserRepository.findAll();
-        assertThat(appUserList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPasswordIsRequired() throws Exception {
-        int databaseSizeBeforeTest = appUserRepository.findAll().size();
-        // set the field null
-        appUser.setPassword(null);
-
-        // Create the AppUser, which fails.
-
-        restAppUserMockMvc.perform(post("/api/app-users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appUser)))
-            .andExpect(status().isBadRequest());
-
-        List<AppUser> appUserList = appUserRepository.findAll();
-        assertThat(appUserList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllAppUsers() throws Exception {
         // Initialize the database
         appUserRepository.saveAndFlush(appUser);

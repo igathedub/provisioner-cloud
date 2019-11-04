@@ -1,14 +1,22 @@
+import { IPublish } from 'app/shared/model/publish.model';
 import { IElementInn } from 'app/shared/model/element-inn.model';
-import { IStateInn } from 'app/shared/model/state-inn.model';
 
 export interface IModelInn {
   id?: number;
-  name?: string;
-  uuid?: number;
+  modelId?: string;
+  subscribe?: string;
+  bind?: string;
+  publish?: IPublish;
   element?: IElementInn;
-  states?: IStateInn[];
 }
 
 export class ModelInn implements IModelInn {
-  constructor(public id?: number, public name?: string, public uuid?: number, public element?: IElementInn, public states?: IStateInn[]) {}
+  constructor(
+    public id?: number,
+    public modelId?: string,
+    public subscribe?: string,
+    public bind?: string,
+    public publish?: IPublish,
+    public element?: IElementInn
+  ) {}
 }

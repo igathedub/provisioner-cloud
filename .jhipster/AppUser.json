@@ -3,17 +3,11 @@
     "fields": [
         {
             "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "password",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "String"
         },
         {
             "fieldName": "email",

@@ -73,7 +73,8 @@ class MeshGroupGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "name":"SAMPLE_TEXT"
-                , "virtual":null
+                , "address":"SAMPLE_TEXT"
+                , "parentAddress":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_meshGroup_url"))).exitHereIfFailed

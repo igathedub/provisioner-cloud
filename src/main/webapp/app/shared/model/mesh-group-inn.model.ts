@@ -1,16 +1,19 @@
-import { INetworkInn } from 'app/shared/model/network-inn.model';
-import { INodeInn } from 'app/shared/model/node-inn.model';
+import { INetworkConfiguration } from 'app/shared/model/network-configuration.model';
 
 export interface IMeshGroupInn {
   id?: number;
   name?: string;
-  virtual?: boolean;
-  network?: INetworkInn;
-  nodes?: INodeInn[];
+  address?: string;
+  parentAddress?: string;
+  networkConfiguration?: INetworkConfiguration;
 }
 
 export class MeshGroupInn implements IMeshGroupInn {
-  constructor(public id?: number, public name?: string, public virtual?: boolean, public network?: INetworkInn, public nodes?: INodeInn[]) {
-    this.virtual = this.virtual || false;
-  }
+  constructor(
+    public id?: number,
+    public name?: string,
+    public address?: string,
+    public parentAddress?: string,
+    public networkConfiguration?: INetworkConfiguration
+  ) {}
 }

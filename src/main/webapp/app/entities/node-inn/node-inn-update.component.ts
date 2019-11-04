@@ -6,13 +6,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { INodeInn, NodeInn } from 'app/shared/model/node-inn.model';
 import { NodeInnService } from './node-inn.service';
-import { IMeshGroupInn } from 'app/shared/model/mesh-group-inn.model';
-import { MeshGroupInnService } from 'app/entities/mesh-group-inn/mesh-group-inn.service';
+import { IFeatures } from 'app/shared/model/features.model';
+import { FeaturesService } from 'app/entities/features/features.service';
+import { INetworkConfiguration } from 'app/shared/model/network-configuration.model';
+import { NetworkConfigurationService } from 'app/entities/network-configuration/network-configuration.service';
 
 @Component({
   selector: 'jhi-node-inn-update',
@@ -21,23 +21,33 @@ import { MeshGroupInnService } from 'app/entities/mesh-group-inn/mesh-group-inn.
 export class NodeInnUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  meshgroups: IMeshGroupInn[];
+  features: IFeatures[];
+
+  networkconfigurations: INetworkConfiguration[];
 
   editForm = this.fb.group({
     id: [],
+    unicastAddress: [],
+    configComplete: [],
+    defaultTTL: [],
+    cid: [],
+    blacklisted: [],
+    uUID: [],
+    security: [],
+    crpl: [],
     name: [],
-    provisionTime: [],
-    nodeIdentifier: [],
-    unicastAdress: [],
+    deviceKey: [],
+    vid: [],
+    pid: [],
     features: [],
-    appKey: [],
-    meshGroup: []
+    networkConfiguration: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected nodeService: NodeInnService,
-    protected meshGroupService: MeshGroupInnService,
+    protected featuresService: FeaturesService,
+    protected networkConfigurationService: NetworkConfigurationService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -47,25 +57,60 @@ export class NodeInnUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ node }) => {
       this.updateForm(node);
     });
-    this.meshGroupService
+    this.featuresService
+      .query({ filter: 'node-is-null' })
+      .pipe(
+        filter((mayBeOk: HttpResponse<IFeatures[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IFeatures[]>) => response.body)
+      )
+      .subscribe(
+        (res: IFeatures[]) => {
+          if (!this.editForm.get('features').value || !this.editForm.get('features').value.id) {
+            this.features = res;
+          } else {
+            this.featuresService
+              .find(this.editForm.get('features').value.id)
+              .pipe(
+                filter((subResMayBeOk: HttpResponse<IFeatures>) => subResMayBeOk.ok),
+                map((subResponse: HttpResponse<IFeatures>) => subResponse.body)
+              )
+              .subscribe(
+                (subRes: IFeatures) => (this.features = [subRes].concat(res)),
+                (subRes: HttpErrorResponse) => this.onError(subRes.message)
+              );
+          }
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    this.networkConfigurationService
       .query()
       .pipe(
-        filter((mayBeOk: HttpResponse<IMeshGroupInn[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IMeshGroupInn[]>) => response.body)
+        filter((mayBeOk: HttpResponse<INetworkConfiguration[]>) => mayBeOk.ok),
+        map((response: HttpResponse<INetworkConfiguration[]>) => response.body)
       )
-      .subscribe((res: IMeshGroupInn[]) => (this.meshgroups = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe(
+        (res: INetworkConfiguration[]) => (this.networkconfigurations = res),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   updateForm(node: INodeInn) {
     this.editForm.patchValue({
       id: node.id,
+      unicastAddress: node.unicastAddress,
+      configComplete: node.configComplete,
+      defaultTTL: node.defaultTTL,
+      cid: node.cid,
+      blacklisted: node.blacklisted,
+      uUID: node.uUID,
+      security: node.security,
+      crpl: node.crpl,
       name: node.name,
-      provisionTime: node.provisionTime != null ? node.provisionTime.format(DATE_TIME_FORMAT) : null,
-      nodeIdentifier: node.nodeIdentifier,
-      unicastAdress: node.unicastAdress,
+      deviceKey: node.deviceKey,
+      vid: node.vid,
+      pid: node.pid,
       features: node.features,
-      appKey: node.appKey,
-      meshGroup: node.meshGroup
+      networkConfiguration: node.networkConfiguration
     });
   }
 
@@ -87,16 +132,20 @@ export class NodeInnUpdateComponent implements OnInit {
     return {
       ...new NodeInn(),
       id: this.editForm.get(['id']).value,
+      unicastAddress: this.editForm.get(['unicastAddress']).value,
+      configComplete: this.editForm.get(['configComplete']).value,
+      defaultTTL: this.editForm.get(['defaultTTL']).value,
+      cid: this.editForm.get(['cid']).value,
+      blacklisted: this.editForm.get(['blacklisted']).value,
+      uUID: this.editForm.get(['uUID']).value,
+      security: this.editForm.get(['security']).value,
+      crpl: this.editForm.get(['crpl']).value,
       name: this.editForm.get(['name']).value,
-      provisionTime:
-        this.editForm.get(['provisionTime']).value != null
-          ? moment(this.editForm.get(['provisionTime']).value, DATE_TIME_FORMAT)
-          : undefined,
-      nodeIdentifier: this.editForm.get(['nodeIdentifier']).value,
-      unicastAdress: this.editForm.get(['unicastAdress']).value,
+      deviceKey: this.editForm.get(['deviceKey']).value,
+      vid: this.editForm.get(['vid']).value,
+      pid: this.editForm.get(['pid']).value,
       features: this.editForm.get(['features']).value,
-      appKey: this.editForm.get(['appKey']).value,
-      meshGroup: this.editForm.get(['meshGroup']).value
+      networkConfiguration: this.editForm.get(['networkConfiguration']).value
     };
   }
 
@@ -116,7 +165,11 @@ export class NodeInnUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackMeshGroupById(index: number, item: IMeshGroupInn) {
+  trackFeaturesById(index: number, item: IFeatures) {
+    return item.id;
+  }
+
+  trackNetworkConfigurationById(index: number, item: INetworkConfiguration) {
     return item.id;
   }
 }

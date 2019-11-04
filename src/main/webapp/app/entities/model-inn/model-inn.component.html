@@ -19,8 +19,10 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="uuid"><span>Uuid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="modelId"><span>Model Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="subscribe"><span>Subscribe</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="bind"><span>Bind</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="publish.id"><span>Publish</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="element.id"><span>Element</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
@@ -28,8 +30,14 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let model of models ;trackBy: trackId">
                 <td><a [routerLink]="['/model-inn', model.id, 'view' ]">{{model.id}}</a></td>
-                <td>{{model.name}}</td>
-                <td>{{model.uuid}}</td>
+                <td>{{model.modelId}}</td>
+                <td>{{model.subscribe}}</td>
+                <td>{{model.bind}}</td>
+                <td>
+                    <div *ngIf="model.publish">
+                        <a [routerLink]="['/publish', model.publish?.id, 'view' ]" >{{model.publish?.id}}</a>
+                    </div>
+                </td>
                 <td>
                     <div *ngIf="model.element">
                         <a [routerLink]="['/element-inn', model.element?.id, 'view' ]" >{{model.element?.id}}</a>

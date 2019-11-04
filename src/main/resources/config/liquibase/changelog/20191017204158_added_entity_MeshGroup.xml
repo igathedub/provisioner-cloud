@@ -18,10 +18,13 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="virtual" type="boolean">
+            <column name="address" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="network_id" type="bigint">
+            <column name="parent_address" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="network_configuration_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -48,7 +51,8 @@
                   tableName="mesh_group">
             <column name="id" type="numeric"/>
             <column name="name" type="string"/>
-            <column name="virtual" type="boolean"/>
+            <column name="address" type="string"/>
+            <column name="parent_address" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

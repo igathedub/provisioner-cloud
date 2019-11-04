@@ -61,6 +61,25 @@ public class CacheConfiguration {
             createCache(cm, skyy.blue.domain.Model.class.getName());
             createCache(cm, skyy.blue.domain.Model.class.getName() + ".states");
             createCache(cm, skyy.blue.domain.State.class.getName());
+            createCache(cm, skyy.blue.domain.AppKey.class.getName());
+            createCache(cm, skyy.blue.domain.NetKey.class.getName());
+            createCache(cm, skyy.blue.domain.KeyIndex.class.getName());
+            createCache(cm, skyy.blue.domain.Features.class.getName());
+            createCache(cm, skyy.blue.domain.Retransmit.class.getName());
+            createCache(cm, skyy.blue.domain.Publish.class.getName());
+            createCache(cm, skyy.blue.domain.AllocatedRange.class.getName());
+            createCache(cm, skyy.blue.domain.Node.class.getName() + ".netKeys");
+            createCache(cm, skyy.blue.domain.Node.class.getName() + ".appKeys");
+            createCache(cm, skyy.blue.domain.Provisioner.class.getName());
+            createCache(cm, skyy.blue.domain.Provisioner.class.getName() + ".aallocatedGroupRanges");
+            createCache(cm, skyy.blue.domain.Provisioner.class.getName() + ".aallocatedUnicastRanges");
+            createCache(cm, skyy.blue.domain.Provisioner.class.getName() + ".aallocatedSceneRanges");
+            createCache(cm, skyy.blue.domain.NetworkConfiguration.class.getName());
+            createCache(cm, skyy.blue.domain.NetworkConfiguration.class.getName() + ".provisioners");
+            createCache(cm, skyy.blue.domain.NetworkConfiguration.class.getName() + ".nodes");
+            createCache(cm, skyy.blue.domain.NetworkConfiguration.class.getName() + ".groups");
+            createCache(cm, skyy.blue.domain.NetworkConfiguration.class.getName() + ".netKeys");
+            createCache(cm, skyy.blue.domain.NetworkConfiguration.class.getName() + ".appKeys");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,5 +1,5 @@
 import { ICustomerInn } from 'app/shared/model/customer-inn.model';
-import { INetworkInn } from 'app/shared/model/network-inn.model';
+import { INetworkConfiguration } from 'app/shared/model/network-configuration.model';
 
 export interface IFacilityInn {
   id?: number;
@@ -9,7 +9,7 @@ export interface IFacilityInn {
   city?: string;
   country?: string;
   customer?: ICustomerInn;
-  networks?: INetworkInn[];
+  networks?: INetworkConfiguration[];
 }
 
 export class FacilityInn implements IFacilityInn {
@@ -21,6 +21,6 @@ export class FacilityInn implements IFacilityInn {
     public city?: string,
     public country?: string,
     public customer?: ICustomerInn,
-    public networks?: INetworkInn[]
+    public networks?: INetworkConfiguration[]
   ) {}
 }

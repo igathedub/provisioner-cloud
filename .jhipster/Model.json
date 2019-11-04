@@ -2,26 +2,32 @@
     "name": "Model",
     "fields": [
         {
-            "fieldName": "name",
+            "fieldName": "modelId",
             "fieldType": "String"
         },
         {
-            "fieldName": "uuid",
-            "fieldType": "Integer"
+            "fieldName": "subscribe",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bind",
+            "fieldType": "String"
         }
     ],
     "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "publish",
+            "otherEntityRelationshipName": "model",
+            "relationshipName": "publish",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
         {
             "relationshipName": "element",
             "otherEntityName": "element",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "state",
-            "otherEntityRelationshipName": "model",
-            "relationshipName": "state"
         }
     ],
     "changelogDate": "20191017204201",

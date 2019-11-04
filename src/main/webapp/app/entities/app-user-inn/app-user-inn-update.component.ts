@@ -23,8 +23,8 @@ export class AppUserInnUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    name: [null, [Validators.required]],
-    password: [null, [Validators.required]],
+    name: [],
+    password: [],
     email: [],
     domain: [],
     customer: []

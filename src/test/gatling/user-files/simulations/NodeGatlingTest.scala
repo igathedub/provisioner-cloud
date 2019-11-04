@@ -72,12 +72,18 @@ class NodeGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
+                , "unicastAddress":"SAMPLE_TEXT"
+                , "configComplete":null
+                , "defaultTTL":"0"
+                , "cid":"SAMPLE_TEXT"
+                , "blacklisted":null
+                , "uUID":"SAMPLE_TEXT"
+                , "security":"SAMPLE_TEXT"
+                , "crpl":"SAMPLE_TEXT"
                 , "name":"SAMPLE_TEXT"
-                , "provisionTime":"2020-01-01T00:00:00.000Z"
-                , "nodeIdentifier":"SAMPLE_TEXT"
-                , "unicastAdress":"0"
-                , "features":"0"
-                , "appKey":"SAMPLE_TEXT"
+                , "deviceKey":"SAMPLE_TEXT"
+                , "vid":"SAMPLE_TEXT"
+                , "pid":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_node_url"))).exitHereIfFailed

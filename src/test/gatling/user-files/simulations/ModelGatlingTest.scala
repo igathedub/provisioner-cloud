@@ -72,8 +72,9 @@ class ModelGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "name":"SAMPLE_TEXT"
-                , "uuid":"0"
+                , "modelId":"SAMPLE_TEXT"
+                , "subscribe":"SAMPLE_TEXT"
+                , "bind":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_model_url"))).exitHereIfFailed

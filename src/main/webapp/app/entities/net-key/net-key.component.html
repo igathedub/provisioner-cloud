@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span>Net Keys</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-net-key" [routerLink]="['/net-key/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Net Key
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="netKeys?.length === 0">
+        <span>No netKeys found</span>
+    </div>
+    <div class="table-responsive" *ngIf="netKeys?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="phase"><span>Phase</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="minSecurity"><span>Min Security</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="key"><span>Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timestamp"><span>Timestamp</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="index"><span>Index</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="networkConfiguration.id"><span>Network Configuration</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let netKey of netKeys ;trackBy: trackId">
+                <td><a [routerLink]="['/net-key', netKey.id, 'view' ]">{{netKey.id}}</a></td>
+                <td>{{netKey.phase}}</td>
+                <td>{{netKey.minSecurity}}</td>
+                <td>{{netKey.key}}</td>
+                <td>{{netKey.timestamp}}</td>
+                <td>{{netKey.name}}</td>
+                <td>{{netKey.index}}</td>
+                <td>
+                    <div *ngIf="netKey.networkConfiguration">
+                        <a [routerLink]="['/network-configuration', netKey.networkConfiguration?.id, 'view' ]" >{{netKey.networkConfiguration?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/net-key', netKey.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/net-key', netKey.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/net-key', { outlets: { popup: netKey.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

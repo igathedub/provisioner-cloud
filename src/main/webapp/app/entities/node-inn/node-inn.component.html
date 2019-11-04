@@ -19,28 +19,46 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="unicastAddress"><span>Unicast Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="configComplete"><span>Config Complete</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="defaultTTL"><span>Default TTL</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="cid"><span>Cid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="blacklisted"><span>Blacklisted</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="uUID"><span>U UID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="security"><span>Security</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="crpl"><span>Crpl</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="provisionTime"><span>Provision Time</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="nodeIdentifier"><span>Node Identifier</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="unicastAdress"><span>Unicast Adress</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="features"><span>Features</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="appKey"><span>App Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="meshGroup.id"><span>Mesh Group</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="deviceKey"><span>Device Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="vid"><span>Vid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="pid"><span>Pid</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="features.id"><span>Features</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="networkConfiguration.id"><span>Network Configuration</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let node of nodes ;trackBy: trackId">
                 <td><a [routerLink]="['/node-inn', node.id, 'view' ]">{{node.id}}</a></td>
+                <td>{{node.unicastAddress}}</td>
+                <td>{{node.configComplete}}</td>
+                <td>{{node.defaultTTL}}</td>
+                <td>{{node.cid}}</td>
+                <td>{{node.blacklisted}}</td>
+                <td>{{node.uUID}}</td>
+                <td>{{node.security}}</td>
+                <td>{{node.crpl}}</td>
                 <td>{{node.name}}</td>
-                <td>{{node.provisionTime | date:'medium'}}</td>
-                <td>{{node.nodeIdentifier}}</td>
-                <td>{{node.unicastAdress}}</td>
-                <td>{{node.features}}</td>
-                <td>{{node.appKey}}</td>
+                <td>{{node.deviceKey}}</td>
+                <td>{{node.vid}}</td>
+                <td>{{node.pid}}</td>
                 <td>
-                    <div *ngIf="node.meshGroup">
-                        <a [routerLink]="['/mesh-group-inn', node.meshGroup?.id, 'view' ]" >{{node.meshGroup?.id}}</a>
+                    <div *ngIf="node.features">
+                        <a [routerLink]="['/features', node.features?.id, 'view' ]" >{{node.features?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="node.networkConfiguration">
+                        <a [routerLink]="['/network-configuration', node.networkConfiguration?.id, 'view' ]" >{{node.networkConfiguration?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

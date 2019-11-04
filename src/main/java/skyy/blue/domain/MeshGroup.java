@@ -6,8 +6,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A MeshGroup.
@@ -27,16 +25,15 @@ public class MeshGroup implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "virtual")
-    private Boolean virtual;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "parent_address")
+    private String parentAddress;
 
     @ManyToOne
     @JsonIgnoreProperties("meshGroups")
-    private Network network;
-
-    @OneToMany(mappedBy = "meshGroup")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Node> nodes = new HashSet<>();
+    private NetworkConfiguration networkConfiguration;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -60,55 +57,43 @@ public class MeshGroup implements Serializable {
         this.name = name;
     }
 
-    public Boolean isVirtual() {
-        return virtual;
+    public String getAddress() {
+        return address;
     }
 
-    public MeshGroup virtual(Boolean virtual) {
-        this.virtual = virtual;
+    public MeshGroup address(String address) {
+        this.address = address;
         return this;
     }
 
-    public void setVirtual(Boolean virtual) {
-        this.virtual = virtual;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Network getNetwork() {
-        return network;
+    public String getParentAddress() {
+        return parentAddress;
     }
 
-    public MeshGroup network(Network network) {
-        this.network = network;
+    public MeshGroup parentAddress(String parentAddress) {
+        this.parentAddress = parentAddress;
         return this;
     }
 
-    public void setNetwork(Network network) {
-        this.network = network;
+    public void setParentAddress(String parentAddress) {
+        this.parentAddress = parentAddress;
     }
 
-    public Set<Node> getNodes() {
-        return nodes;
+    public NetworkConfiguration getNetworkConfiguration() {
+        return networkConfiguration;
     }
 
-    public MeshGroup nodes(Set<Node> nodes) {
-        this.nodes = nodes;
+    public MeshGroup networkConfiguration(NetworkConfiguration networkConfiguration) {
+        this.networkConfiguration = networkConfiguration;
         return this;
     }
 
-    public MeshGroup addNode(Node node) {
-        this.nodes.add(node);
-        node.setMeshGroup(this);
-        return this;
-    }
-
-    public MeshGroup removeNode(Node node) {
-        this.nodes.remove(node);
-        node.setMeshGroup(null);
-        return this;
-    }
-
-    public void setNodes(Set<Node> nodes) {
-        this.nodes = nodes;
+    public void setNetworkConfiguration(NetworkConfiguration networkConfiguration) {
+        this.networkConfiguration = networkConfiguration;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -133,7 +118,8 @@ public class MeshGroup implements Serializable {
         return "MeshGroup{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", virtual='" + isVirtual() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", parentAddress='" + getParentAddress() + "'" +
             "}";
     }
 }

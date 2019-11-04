@@ -33,6 +33,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ProvisionerCloudApp.class)
 public class ElementResourceIT {
 
+    private static final Integer DEFAULT_INDEX = 1;
+    private static final Integer UPDATED_INDEX = 2;
+
+    private static final String DEFAULT_LOCATION = "AAAAAAAAAA";
+    private static final String UPDATED_LOCATION = "BBBBBBBBBB";
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -78,6 +84,8 @@ public class ElementResourceIT {
      */
     public static Element createEntity(EntityManager em) {
         Element element = new Element()
+            .index(DEFAULT_INDEX)
+            .location(DEFAULT_LOCATION)
             .name(DEFAULT_NAME);
         return element;
     }
@@ -89,6 +97,8 @@ public class ElementResourceIT {
      */
     public static Element createUpdatedEntity(EntityManager em) {
         Element element = new Element()
+            .index(UPDATED_INDEX)
+            .location(UPDATED_LOCATION)
             .name(UPDATED_NAME);
         return element;
     }
@@ -113,6 +123,8 @@ public class ElementResourceIT {
         List<Element> elementList = elementRepository.findAll();
         assertThat(elementList).hasSize(databaseSizeBeforeCreate + 1);
         Element testElement = elementList.get(elementList.size() - 1);
+        assertThat(testElement.getIndex()).isEqualTo(DEFAULT_INDEX);
+        assertThat(testElement.getLocation()).isEqualTo(DEFAULT_LOCATION);
         assertThat(testElement.getName()).isEqualTo(DEFAULT_NAME);
     }
 
@@ -147,6 +159,8 @@ public class ElementResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(element.getId().intValue())))
+            .andExpect(jsonPath("$.[*].index").value(hasItem(DEFAULT_INDEX)))
+            .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
     
@@ -161,6 +175,8 @@ public class ElementResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(element.getId().intValue()))
+            .andExpect(jsonPath("$.index").value(DEFAULT_INDEX))
+            .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
 
@@ -185,6 +201,8 @@ public class ElementResourceIT {
         // Disconnect from session so that the updates on updatedElement are not directly saved in db
         em.detach(updatedElement);
         updatedElement
+            .index(UPDATED_INDEX)
+            .location(UPDATED_LOCATION)
             .name(UPDATED_NAME);
 
         restElementMockMvc.perform(put("/api/elements")
@@ -196,6 +214,8 @@ public class ElementResourceIT {
         List<Element> elementList = elementRepository.findAll();
         assertThat(elementList).hasSize(databaseSizeBeforeUpdate);
         Element testElement = elementList.get(elementList.size() - 1);
+        assertThat(testElement.getIndex()).isEqualTo(UPDATED_INDEX);
+        assertThat(testElement.getLocation()).isEqualTo(UPDATED_LOCATION);
         assertThat(testElement.getName()).isEqualTo(UPDATED_NAME);
     }
 
