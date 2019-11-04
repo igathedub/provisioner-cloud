@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="netKey">
+            <h2><span>Net Key</span> {{netKey.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Phase</span></dt>
+                <dd>
+                    <span>{{netKey.phase}}</span>
+                </dd>
+                <dt><span>Min Security</span></dt>
+                <dd>
+                    <span>{{netKey.minSecurity}}</span>
+                </dd>
+                <dt><span>Key</span></dt>
+                <dd>
+                    <span>{{netKey.key}}</span>
+                </dd>
+                <dt><span>Timestamp</span></dt>
+                <dd>
+                    <span>{{netKey.timestamp}}</span>
+                </dd>
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{netKey.name}}</span>
+                </dd>
+                <dt><span>Index</span></dt>
+                <dd>
+                    <span>{{netKey.index}}</span>
+                </dd>
+                <dt><span>Network Configuration</span></dt>
+                <dd>
+                    <div *ngIf="netKey.networkConfiguration">
+                        <a [routerLink]="['/network-configuration', netKey.networkConfiguration?.id, 'view']">{{netKey.networkConfiguration?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/net-key', netKey.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

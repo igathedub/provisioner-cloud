@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(MeshGroupInnService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new MeshGroupInn(0, 'AAAAAAA', false);
+      elemDefault = new MeshGroupInn(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -57,7 +57,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             name: 'BBBBBB',
-            virtual: true
+            address: 'BBBBBB',
+            parentAddress: 'BBBBBB'
           },
           elemDefault
         );
@@ -76,7 +77,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             name: 'BBBBBB',
-            virtual: true
+            address: 'BBBBBB',
+            parentAddress: 'BBBBBB'
           },
           elemDefault
         );

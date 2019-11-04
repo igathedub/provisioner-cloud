@@ -19,13 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
 import java.util.List;
 
-import static skyy.blue.web.rest.TestUtil.sameInstant;
 import static skyy.blue.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -38,23 +33,41 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ProvisionerCloudApp.class)
 public class NodeResourceIT {
 
+    private static final String DEFAULT_UNICAST_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_UNICAST_ADDRESS = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_CONFIG_COMPLETE = false;
+    private static final Boolean UPDATED_CONFIG_COMPLETE = true;
+
+    private static final Integer DEFAULT_DEFAULT_TTL = 1;
+    private static final Integer UPDATED_DEFAULT_TTL = 2;
+
+    private static final String DEFAULT_CID = "AAAAAAAAAA";
+    private static final String UPDATED_CID = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_BLACKLISTED = false;
+    private static final Boolean UPDATED_BLACKLISTED = true;
+
+    private static final String DEFAULT_U_UID = "AAAAAAAAAA";
+    private static final String UPDATED_U_UID = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SECURITY = "AAAAAAAAAA";
+    private static final String UPDATED_SECURITY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CRPL = "AAAAAAAAAA";
+    private static final String UPDATED_CRPL = "BBBBBBBBBB";
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_PROVISION_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_PROVISION_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DEVICE_KEY = "AAAAAAAAAA";
+    private static final String UPDATED_DEVICE_KEY = "BBBBBBBBBB";
 
-    private static final String DEFAULT_NODE_IDENTIFIER = "AAAAAAAAAA";
-    private static final String UPDATED_NODE_IDENTIFIER = "BBBBBBBBBB";
+    private static final String DEFAULT_VID = "AAAAAAAAAA";
+    private static final String UPDATED_VID = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_UNICAST_ADRESS = 1;
-    private static final Integer UPDATED_UNICAST_ADRESS = 2;
-
-    private static final Integer DEFAULT_FEATURES = 1;
-    private static final Integer UPDATED_FEATURES = 2;
-
-    private static final String DEFAULT_APP_KEY = "AAAAAAAAAA";
-    private static final String UPDATED_APP_KEY = "BBBBBBBBBB";
+    private static final String DEFAULT_PID = "AAAAAAAAAA";
+    private static final String UPDATED_PID = "BBBBBBBBBB";
 
     @Autowired
     private NodeRepository nodeRepository;
@@ -98,12 +111,18 @@ public class NodeResourceIT {
      */
     public static Node createEntity(EntityManager em) {
         Node node = new Node()
+            .unicastAddress(DEFAULT_UNICAST_ADDRESS)
+            .configComplete(DEFAULT_CONFIG_COMPLETE)
+            .defaultTTL(DEFAULT_DEFAULT_TTL)
+            .cid(DEFAULT_CID)
+            .blacklisted(DEFAULT_BLACKLISTED)
+            .uUID(DEFAULT_U_UID)
+            .security(DEFAULT_SECURITY)
+            .crpl(DEFAULT_CRPL)
             .name(DEFAULT_NAME)
-            .provisionTime(DEFAULT_PROVISION_TIME)
-            .nodeIdentifier(DEFAULT_NODE_IDENTIFIER)
-            .unicastAdress(DEFAULT_UNICAST_ADRESS)
-            .features(DEFAULT_FEATURES)
-            .appKey(DEFAULT_APP_KEY);
+            .deviceKey(DEFAULT_DEVICE_KEY)
+            .vid(DEFAULT_VID)
+            .pid(DEFAULT_PID);
         return node;
     }
     /**
@@ -114,12 +133,18 @@ public class NodeResourceIT {
      */
     public static Node createUpdatedEntity(EntityManager em) {
         Node node = new Node()
+            .unicastAddress(UPDATED_UNICAST_ADDRESS)
+            .configComplete(UPDATED_CONFIG_COMPLETE)
+            .defaultTTL(UPDATED_DEFAULT_TTL)
+            .cid(UPDATED_CID)
+            .blacklisted(UPDATED_BLACKLISTED)
+            .uUID(UPDATED_U_UID)
+            .security(UPDATED_SECURITY)
+            .crpl(UPDATED_CRPL)
             .name(UPDATED_NAME)
-            .provisionTime(UPDATED_PROVISION_TIME)
-            .nodeIdentifier(UPDATED_NODE_IDENTIFIER)
-            .unicastAdress(UPDATED_UNICAST_ADRESS)
-            .features(UPDATED_FEATURES)
-            .appKey(UPDATED_APP_KEY);
+            .deviceKey(UPDATED_DEVICE_KEY)
+            .vid(UPDATED_VID)
+            .pid(UPDATED_PID);
         return node;
     }
 
@@ -143,12 +168,18 @@ public class NodeResourceIT {
         List<Node> nodeList = nodeRepository.findAll();
         assertThat(nodeList).hasSize(databaseSizeBeforeCreate + 1);
         Node testNode = nodeList.get(nodeList.size() - 1);
+        assertThat(testNode.getUnicastAddress()).isEqualTo(DEFAULT_UNICAST_ADDRESS);
+        assertThat(testNode.isConfigComplete()).isEqualTo(DEFAULT_CONFIG_COMPLETE);
+        assertThat(testNode.getDefaultTTL()).isEqualTo(DEFAULT_DEFAULT_TTL);
+        assertThat(testNode.getCid()).isEqualTo(DEFAULT_CID);
+        assertThat(testNode.isBlacklisted()).isEqualTo(DEFAULT_BLACKLISTED);
+        assertThat(testNode.getuUID()).isEqualTo(DEFAULT_U_UID);
+        assertThat(testNode.getSecurity()).isEqualTo(DEFAULT_SECURITY);
+        assertThat(testNode.getCrpl()).isEqualTo(DEFAULT_CRPL);
         assertThat(testNode.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testNode.getProvisionTime()).isEqualTo(DEFAULT_PROVISION_TIME);
-        assertThat(testNode.getNodeIdentifier()).isEqualTo(DEFAULT_NODE_IDENTIFIER);
-        assertThat(testNode.getUnicastAdress()).isEqualTo(DEFAULT_UNICAST_ADRESS);
-        assertThat(testNode.getFeatures()).isEqualTo(DEFAULT_FEATURES);
-        assertThat(testNode.getAppKey()).isEqualTo(DEFAULT_APP_KEY);
+        assertThat(testNode.getDeviceKey()).isEqualTo(DEFAULT_DEVICE_KEY);
+        assertThat(testNode.getVid()).isEqualTo(DEFAULT_VID);
+        assertThat(testNode.getPid()).isEqualTo(DEFAULT_PID);
     }
 
     @Test
@@ -182,12 +213,18 @@ public class NodeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(node.getId().intValue())))
+            .andExpect(jsonPath("$.[*].unicastAddress").value(hasItem(DEFAULT_UNICAST_ADDRESS)))
+            .andExpect(jsonPath("$.[*].configComplete").value(hasItem(DEFAULT_CONFIG_COMPLETE.booleanValue())))
+            .andExpect(jsonPath("$.[*].defaultTTL").value(hasItem(DEFAULT_DEFAULT_TTL)))
+            .andExpect(jsonPath("$.[*].cid").value(hasItem(DEFAULT_CID)))
+            .andExpect(jsonPath("$.[*].blacklisted").value(hasItem(DEFAULT_BLACKLISTED.booleanValue())))
+            .andExpect(jsonPath("$.[*].uUID").value(hasItem(DEFAULT_U_UID)))
+            .andExpect(jsonPath("$.[*].security").value(hasItem(DEFAULT_SECURITY)))
+            .andExpect(jsonPath("$.[*].crpl").value(hasItem(DEFAULT_CRPL)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].provisionTime").value(hasItem(sameInstant(DEFAULT_PROVISION_TIME))))
-            .andExpect(jsonPath("$.[*].nodeIdentifier").value(hasItem(DEFAULT_NODE_IDENTIFIER)))
-            .andExpect(jsonPath("$.[*].unicastAdress").value(hasItem(DEFAULT_UNICAST_ADRESS)))
-            .andExpect(jsonPath("$.[*].features").value(hasItem(DEFAULT_FEATURES)))
-            .andExpect(jsonPath("$.[*].appKey").value(hasItem(DEFAULT_APP_KEY)));
+            .andExpect(jsonPath("$.[*].deviceKey").value(hasItem(DEFAULT_DEVICE_KEY)))
+            .andExpect(jsonPath("$.[*].vid").value(hasItem(DEFAULT_VID)))
+            .andExpect(jsonPath("$.[*].pid").value(hasItem(DEFAULT_PID)));
     }
     
     @Test
@@ -201,12 +238,18 @@ public class NodeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(node.getId().intValue()))
+            .andExpect(jsonPath("$.unicastAddress").value(DEFAULT_UNICAST_ADDRESS))
+            .andExpect(jsonPath("$.configComplete").value(DEFAULT_CONFIG_COMPLETE.booleanValue()))
+            .andExpect(jsonPath("$.defaultTTL").value(DEFAULT_DEFAULT_TTL))
+            .andExpect(jsonPath("$.cid").value(DEFAULT_CID))
+            .andExpect(jsonPath("$.blacklisted").value(DEFAULT_BLACKLISTED.booleanValue()))
+            .andExpect(jsonPath("$.uUID").value(DEFAULT_U_UID))
+            .andExpect(jsonPath("$.security").value(DEFAULT_SECURITY))
+            .andExpect(jsonPath("$.crpl").value(DEFAULT_CRPL))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.provisionTime").value(sameInstant(DEFAULT_PROVISION_TIME)))
-            .andExpect(jsonPath("$.nodeIdentifier").value(DEFAULT_NODE_IDENTIFIER))
-            .andExpect(jsonPath("$.unicastAdress").value(DEFAULT_UNICAST_ADRESS))
-            .andExpect(jsonPath("$.features").value(DEFAULT_FEATURES))
-            .andExpect(jsonPath("$.appKey").value(DEFAULT_APP_KEY));
+            .andExpect(jsonPath("$.deviceKey").value(DEFAULT_DEVICE_KEY))
+            .andExpect(jsonPath("$.vid").value(DEFAULT_VID))
+            .andExpect(jsonPath("$.pid").value(DEFAULT_PID));
     }
 
     @Test
@@ -230,12 +273,18 @@ public class NodeResourceIT {
         // Disconnect from session so that the updates on updatedNode are not directly saved in db
         em.detach(updatedNode);
         updatedNode
+            .unicastAddress(UPDATED_UNICAST_ADDRESS)
+            .configComplete(UPDATED_CONFIG_COMPLETE)
+            .defaultTTL(UPDATED_DEFAULT_TTL)
+            .cid(UPDATED_CID)
+            .blacklisted(UPDATED_BLACKLISTED)
+            .uUID(UPDATED_U_UID)
+            .security(UPDATED_SECURITY)
+            .crpl(UPDATED_CRPL)
             .name(UPDATED_NAME)
-            .provisionTime(UPDATED_PROVISION_TIME)
-            .nodeIdentifier(UPDATED_NODE_IDENTIFIER)
-            .unicastAdress(UPDATED_UNICAST_ADRESS)
-            .features(UPDATED_FEATURES)
-            .appKey(UPDATED_APP_KEY);
+            .deviceKey(UPDATED_DEVICE_KEY)
+            .vid(UPDATED_VID)
+            .pid(UPDATED_PID);
 
         restNodeMockMvc.perform(put("/api/nodes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -246,12 +295,18 @@ public class NodeResourceIT {
         List<Node> nodeList = nodeRepository.findAll();
         assertThat(nodeList).hasSize(databaseSizeBeforeUpdate);
         Node testNode = nodeList.get(nodeList.size() - 1);
+        assertThat(testNode.getUnicastAddress()).isEqualTo(UPDATED_UNICAST_ADDRESS);
+        assertThat(testNode.isConfigComplete()).isEqualTo(UPDATED_CONFIG_COMPLETE);
+        assertThat(testNode.getDefaultTTL()).isEqualTo(UPDATED_DEFAULT_TTL);
+        assertThat(testNode.getCid()).isEqualTo(UPDATED_CID);
+        assertThat(testNode.isBlacklisted()).isEqualTo(UPDATED_BLACKLISTED);
+        assertThat(testNode.getuUID()).isEqualTo(UPDATED_U_UID);
+        assertThat(testNode.getSecurity()).isEqualTo(UPDATED_SECURITY);
+        assertThat(testNode.getCrpl()).isEqualTo(UPDATED_CRPL);
         assertThat(testNode.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testNode.getProvisionTime()).isEqualTo(UPDATED_PROVISION_TIME);
-        assertThat(testNode.getNodeIdentifier()).isEqualTo(UPDATED_NODE_IDENTIFIER);
-        assertThat(testNode.getUnicastAdress()).isEqualTo(UPDATED_UNICAST_ADRESS);
-        assertThat(testNode.getFeatures()).isEqualTo(UPDATED_FEATURES);
-        assertThat(testNode.getAppKey()).isEqualTo(UPDATED_APP_KEY);
+        assertThat(testNode.getDeviceKey()).isEqualTo(UPDATED_DEVICE_KEY);
+        assertThat(testNode.getVid()).isEqualTo(UPDATED_VID);
+        assertThat(testNode.getPid()).isEqualTo(UPDATED_PID);
     }
 
     @Test

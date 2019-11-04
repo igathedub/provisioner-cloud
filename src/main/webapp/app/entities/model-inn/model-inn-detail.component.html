@@ -5,13 +5,23 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Name</span></dt>
+                <dt><span>Model Id</span></dt>
                 <dd>
-                    <span>{{model.name}}</span>
+                    <span>{{model.modelId}}</span>
                 </dd>
-                <dt><span>Uuid</span></dt>
+                <dt><span>Subscribe</span></dt>
                 <dd>
-                    <span>{{model.uuid}}</span>
+                    <span>{{model.subscribe}}</span>
+                </dd>
+                <dt><span>Bind</span></dt>
+                <dd>
+                    <span>{{model.bind}}</span>
+                </dd>
+                <dt><span>Publish</span></dt>
+                <dd>
+                    <div *ngIf="model.publish">
+                        <a [routerLink]="['/publish', model.publish?.id, 'view']">{{model.publish?.id}}</a>
+                    </div>
                 </dd>
                 <dt><span>Element</span></dt>
                 <dd>

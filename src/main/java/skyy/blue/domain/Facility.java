@@ -45,7 +45,7 @@ public class Facility implements Serializable {
 
     @OneToMany(mappedBy = "facility")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Network> networks = new HashSet<>();
+    private Set<NetworkConfiguration> networks = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -134,29 +134,29 @@ public class Facility implements Serializable {
         this.customer = customer;
     }
 
-    public Set<Network> getNetworks() {
+    public Set<NetworkConfiguration> getNetworks() {
         return networks;
     }
 
-    public Facility networks(Set<Network> networks) {
-        this.networks = networks;
+    public Facility networks(Set<NetworkConfiguration> networkConfigurations) {
+        this.networks = networkConfigurations;
         return this;
     }
 
-    public Facility addNetwork(Network network) {
-        this.networks.add(network);
-        network.setFacility(this);
+    public Facility addNetwork(NetworkConfiguration networkConfiguration) {
+        this.networks.add(networkConfiguration);
+        networkConfiguration.setFacility(this);
         return this;
     }
 
-    public Facility removeNetwork(Network network) {
-        this.networks.remove(network);
-        network.setFacility(null);
+    public Facility removeNetwork(NetworkConfiguration networkConfiguration) {
+        this.networks.remove(networkConfiguration);
+        networkConfiguration.setFacility(null);
         return this;
     }
 
-    public void setNetworks(Set<Network> networks) {
-        this.networks = networks;
+    public void setNetworks(Set<NetworkConfiguration> networkConfigurations) {
+        this.networks = networkConfigurations;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

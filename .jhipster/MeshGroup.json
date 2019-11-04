@@ -6,22 +6,20 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "virtual",
-            "fieldType": "Boolean"
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "parentAddress",
+            "fieldType": "String"
         }
     ],
     "relationships": [
         {
-            "relationshipName": "network",
-            "otherEntityName": "network",
+            "relationshipName": "networkConfiguration",
+            "otherEntityName": "networkConfiguration",
             "relationshipType": "many-to-one",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "node",
-            "otherEntityRelationshipName": "meshGroup",
-            "relationshipName": "node"
         }
     ],
     "changelogDate": "20191017204158",

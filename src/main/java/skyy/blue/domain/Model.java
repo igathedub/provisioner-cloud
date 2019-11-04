@@ -6,8 +6,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A Model.
@@ -24,19 +22,22 @@ public class Model implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "model_id")
+    private String modelId;
 
-    @Column(name = "uuid")
-    private Integer uuid;
+    @Column(name = "subscribe")
+    private String subscribe;
+
+    @Column(name = "bind")
+    private String bind;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Publish publish;
 
     @ManyToOne
     @JsonIgnoreProperties("models")
     private Element element;
-
-    @OneToMany(mappedBy = "model")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<State> states = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -47,30 +48,56 @@ public class Model implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getModelId() {
+        return modelId;
     }
 
-    public Model name(String name) {
-        this.name = name;
+    public Model modelId(String modelId) {
+        this.modelId = modelId;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setModelId(String modelId) {
+        this.modelId = modelId;
     }
 
-    public Integer getUuid() {
-        return uuid;
+    public String getSubscribe() {
+        return subscribe;
     }
 
-    public Model uuid(Integer uuid) {
-        this.uuid = uuid;
+    public Model subscribe(String subscribe) {
+        this.subscribe = subscribe;
         return this;
     }
 
-    public void setUuid(Integer uuid) {
-        this.uuid = uuid;
+    public void setSubscribe(String subscribe) {
+        this.subscribe = subscribe;
+    }
+
+    public String getBind() {
+        return bind;
+    }
+
+    public Model bind(String bind) {
+        this.bind = bind;
+        return this;
+    }
+
+    public void setBind(String bind) {
+        this.bind = bind;
+    }
+
+    public Publish getPublish() {
+        return publish;
+    }
+
+    public Model publish(Publish publish) {
+        this.publish = publish;
+        return this;
+    }
+
+    public void setPublish(Publish publish) {
+        this.publish = publish;
     }
 
     public Element getElement() {
@@ -84,31 +111,6 @@ public class Model implements Serializable {
 
     public void setElement(Element element) {
         this.element = element;
-    }
-
-    public Set<State> getStates() {
-        return states;
-    }
-
-    public Model states(Set<State> states) {
-        this.states = states;
-        return this;
-    }
-
-    public Model addState(State state) {
-        this.states.add(state);
-        state.setModel(this);
-        return this;
-    }
-
-    public Model removeState(State state) {
-        this.states.remove(state);
-        state.setModel(null);
-        return this;
-    }
-
-    public void setStates(Set<State> states) {
-        this.states = states;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -132,8 +134,9 @@ public class Model implements Serializable {
     public String toString() {
         return "Model{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", uuid=" + getUuid() +
+            ", modelId='" + getModelId() + "'" +
+            ", subscribe='" + getSubscribe() + "'" +
+            ", bind='" + getBind() + "'" +
             "}";
     }
 }

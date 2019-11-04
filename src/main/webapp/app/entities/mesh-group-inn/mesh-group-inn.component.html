@@ -20,8 +20,9 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="virtual"><span>Virtual</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="network.id"><span>Network</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="address"><span>Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="parentAddress"><span>Parent Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="networkConfiguration.id"><span>Network Configuration</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -29,10 +30,11 @@
             <tr *ngFor="let meshGroup of meshGroups ;trackBy: trackId">
                 <td><a [routerLink]="['/mesh-group-inn', meshGroup.id, 'view' ]">{{meshGroup.id}}</a></td>
                 <td>{{meshGroup.name}}</td>
-                <td>{{meshGroup.virtual}}</td>
+                <td>{{meshGroup.address}}</td>
+                <td>{{meshGroup.parentAddress}}</td>
                 <td>
-                    <div *ngIf="meshGroup.network">
-                        <a [routerLink]="['/network-inn', meshGroup.network?.id, 'view' ]" >{{meshGroup.network?.id}}</a>
+                    <div *ngIf="meshGroup.networkConfiguration">
+                        <a [routerLink]="['/network-configuration', meshGroup.networkConfiguration?.id, 'view' ]" >{{meshGroup.networkConfiguration?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -31,7 +31,7 @@
         },
         {
             "relationshipType": "one-to-many",
-            "otherEntityName": "network",
+            "otherEntityName": "networkConfiguration",
             "otherEntityRelationshipName": "facility",
             "relationshipName": "network"
         }

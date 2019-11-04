@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="keyIndex">
+            <h2><span>Key Index</span> {{keyIndex.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Index</span></dt>
+                <dd>
+                    <span>{{keyIndex.index}}</span>
+                </dd>
+                <dt><span>Updated</span></dt>
+                <dd>
+                    <span>{{keyIndex.updated}}</span>
+                </dd>
+                <dt><span>Node</span></dt>
+                <dd>
+                    <div *ngIf="keyIndex.node">
+                        <a [routerLink]="['/node-inn', keyIndex.node?.id, 'view']">{{keyIndex.node?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Node</span></dt>
+                <dd>
+                    <div *ngIf="keyIndex.node">
+                        <a [routerLink]="['/node-inn', keyIndex.node?.id, 'view']">{{keyIndex.node?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/key-index', keyIndex.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

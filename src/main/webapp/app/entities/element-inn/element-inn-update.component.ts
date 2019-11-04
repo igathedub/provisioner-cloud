@@ -23,6 +23,8 @@ export class ElementInnUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
+    index: [],
+    location: [],
     name: [],
     node: []
   });
@@ -52,6 +54,8 @@ export class ElementInnUpdateComponent implements OnInit {
   updateForm(element: IElementInn) {
     this.editForm.patchValue({
       id: element.id,
+      index: element.index,
+      location: element.location,
       name: element.name,
       node: element.node
     });
@@ -75,6 +79,8 @@ export class ElementInnUpdateComponent implements OnInit {
     return {
       ...new ElementInn(),
       id: this.editForm.get(['id']).value,
+      index: this.editForm.get(['index']).value,
+      location: this.editForm.get(['location']).value,
       name: this.editForm.get(['name']).value,
       node: this.editForm.get(['node']).value
     };

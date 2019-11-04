@@ -8,11 +8,17 @@
     -->
     <changeSet id="20191017204159-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="mesh_group_id"
+        <addForeignKeyConstraint baseColumnNames="features_id"
                                  baseTableName="node"
-                                 constraintName="fk_node_mesh_group_id"
+                                 constraintName="fk_node_features_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="mesh_group"/>
+                                 referencedTableName="features"/>
+
+        <addForeignKeyConstraint baseColumnNames="network_configuration_id"
+                                 baseTableName="node"
+                                 constraintName="fk_node_network_configuration_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="network_configuration"/>
 
     </changeSet>
 </databaseChangeLog>

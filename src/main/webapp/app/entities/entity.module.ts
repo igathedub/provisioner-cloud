@@ -43,6 +43,43 @@ import { RouterModule } from '@angular/router';
       {
         path: 'state-inn',
         loadChildren: () => import('./state-inn/state-inn.module').then(m => m.ProvisionerCloudStateInnModule)
+      },
+      {
+        path: 'app-key',
+        loadChildren: () => import('./app-key/app-key.module').then(m => m.ProvisionerCloudAppKeyModule)
+      },
+      {
+        path: 'net-key',
+        loadChildren: () => import('./net-key/net-key.module').then(m => m.ProvisionerCloudNetKeyModule)
+      },
+      {
+        path: 'key-index',
+        loadChildren: () => import('./key-index/key-index.module').then(m => m.ProvisionerCloudKeyIndexModule)
+      },
+      {
+        path: 'features',
+        loadChildren: () => import('./features/features.module').then(m => m.ProvisionerCloudFeaturesModule)
+      },
+      {
+        path: 'retransmit',
+        loadChildren: () => import('./retransmit/retransmit.module').then(m => m.ProvisionerCloudRetransmitModule)
+      },
+      {
+        path: 'publish',
+        loadChildren: () => import('./publish/publish.module').then(m => m.ProvisionerCloudPublishModule)
+      },
+      {
+        path: 'allocated-range',
+        loadChildren: () => import('./allocated-range/allocated-range.module').then(m => m.ProvisionerCloudAllocatedRangeModule)
+      },
+      {
+        path: 'provisioner',
+        loadChildren: () => import('./provisioner/provisioner.module').then(m => m.ProvisionerCloudProvisionerModule)
+      },
+      {
+        path: 'network-configuration',
+        loadChildren: () =>
+          import('./network-configuration/network-configuration.module').then(m => m.ProvisionerCloudNetworkConfigurationModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

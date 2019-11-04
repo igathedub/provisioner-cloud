@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="provisioner">
+            <h2><span>Provisioner</span> {{provisioner.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>U UID</span></dt>
+                <dd>
+                    <span>{{provisioner.uUID}}</span>
+                </dd>
+                <dt><span>Provisioner Name</span></dt>
+                <dd>
+                    <span>{{provisioner.provisionerName}}</span>
+                </dd>
+                <dt><span>Network Configuration</span></dt>
+                <dd>
+                    <div *ngIf="provisioner.networkConfiguration">
+                        <a [routerLink]="['/network-configuration', provisioner.networkConfiguration?.id, 'view']">{{provisioner.networkConfiguration?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/provisioner', provisioner.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

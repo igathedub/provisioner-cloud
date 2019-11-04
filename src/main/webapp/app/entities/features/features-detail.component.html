@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="features">
+            <h2><span>Features</span> {{features.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Proxy</span></dt>
+                <dd>
+                    <span>{{features.proxy}}</span>
+                </dd>
+                <dt><span>Friend</span></dt>
+                <dd>
+                    <span>{{features.friend}}</span>
+                </dd>
+                <dt><span>Relay</span></dt>
+                <dd>
+                    <span>{{features.relay}}</span>
+                </dd>
+                <dt><span>Low Power</span></dt>
+                <dd>
+                    <span>{{features.lowPower}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/features', features.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -5,34 +5,64 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span>Unicast Address</span></dt>
+                <dd>
+                    <span>{{node.unicastAddress}}</span>
+                </dd>
+                <dt><span>Config Complete</span></dt>
+                <dd>
+                    <span>{{node.configComplete}}</span>
+                </dd>
+                <dt><span>Default TTL</span></dt>
+                <dd>
+                    <span>{{node.defaultTTL}}</span>
+                </dd>
+                <dt><span>Cid</span></dt>
+                <dd>
+                    <span>{{node.cid}}</span>
+                </dd>
+                <dt><span>Blacklisted</span></dt>
+                <dd>
+                    <span>{{node.blacklisted}}</span>
+                </dd>
+                <dt><span>U UID</span></dt>
+                <dd>
+                    <span>{{node.uUID}}</span>
+                </dd>
+                <dt><span>Security</span></dt>
+                <dd>
+                    <span>{{node.security}}</span>
+                </dd>
+                <dt><span>Crpl</span></dt>
+                <dd>
+                    <span>{{node.crpl}}</span>
+                </dd>
                 <dt><span>Name</span></dt>
                 <dd>
                     <span>{{node.name}}</span>
                 </dd>
-                <dt><span>Provision Time</span></dt>
+                <dt><span>Device Key</span></dt>
                 <dd>
-                    <span>{{node.provisionTime}}</span>
+                    <span>{{node.deviceKey}}</span>
                 </dd>
-                <dt><span>Node Identifier</span></dt>
+                <dt><span>Vid</span></dt>
                 <dd>
-                    <span>{{node.nodeIdentifier}}</span>
+                    <span>{{node.vid}}</span>
                 </dd>
-                <dt><span>Unicast Adress</span></dt>
+                <dt><span>Pid</span></dt>
                 <dd>
-                    <span>{{node.unicastAdress}}</span>
+                    <span>{{node.pid}}</span>
                 </dd>
                 <dt><span>Features</span></dt>
                 <dd>
-                    <span>{{node.features}}</span>
+                    <div *ngIf="node.features">
+                        <a [routerLink]="['/features', node.features?.id, 'view']">{{node.features?.id}}</a>
+                    </div>
                 </dd>
-                <dt><span>App Key</span></dt>
+                <dt><span>Network Configuration</span></dt>
                 <dd>
-                    <span>{{node.appKey}}</span>
-                </dd>
-                <dt><span>Mesh Group</span></dt>
-                <dd>
-                    <div *ngIf="node.meshGroup">
-                        <a [routerLink]="['/mesh-group-inn', node.meshGroup?.id, 'view']">{{node.meshGroup?.id}}</a>
+                    <div *ngIf="node.networkConfiguration">
+                        <a [routerLink]="['/network-configuration', node.networkConfiguration?.id, 'view']">{{node.networkConfiguration?.id}}</a>
                     </div>
                 </dd>
             </dl>

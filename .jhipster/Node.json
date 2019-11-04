@@ -2,42 +2,86 @@
     "name": "Node",
     "fields": [
         {
+            "fieldName": "unicastAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "configComplete",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "defaultTTL",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "cid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "blacklisted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "uUID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "security",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "crpl",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "name",
             "fieldType": "String"
         },
         {
-            "fieldName": "provisionTime",
-            "fieldType": "ZonedDateTime"
-        },
-        {
-            "fieldName": "nodeIdentifier",
+            "fieldName": "deviceKey",
             "fieldType": "String"
         },
         {
-            "fieldName": "unicastAdress",
-            "fieldType": "Integer"
+            "fieldName": "vid",
+            "fieldType": "String"
         },
         {
-            "fieldName": "features",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "appKey",
+            "fieldName": "pid",
             "fieldType": "String"
         }
     ],
     "relationships": [
         {
-            "relationshipName": "meshGroup",
-            "otherEntityName": "meshGroup",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "relationshipType": "one-to-one",
+            "otherEntityName": "features",
+            "otherEntityRelationshipName": "node",
+            "relationshipName": "features",
+            "otherEntityField": "id",
+            "ownerSide": true
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "element",
             "otherEntityRelationshipName": "node",
             "relationshipName": "element"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "keyIndex",
+            "otherEntityRelationshipName": "node",
+            "relationshipName": "netKey"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "keyIndex",
+            "otherEntityRelationshipName": "node",
+            "relationshipName": "appKey"
+        },
+        {
+            "relationshipName": "networkConfiguration",
+            "otherEntityName": "networkConfiguration",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20191017204159",

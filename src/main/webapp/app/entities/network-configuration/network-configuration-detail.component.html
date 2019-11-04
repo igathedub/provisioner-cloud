@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="networkConfiguration">
+            <h2><span>Network Configuration</span> {{networkConfiguration.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Mesh UUID</span></dt>
+                <dd>
+                    <span>{{networkConfiguration.meshUUID}}</span>
+                </dd>
+                <dt><span>Timestamp</span></dt>
+                <dd>
+                    <span>{{networkConfiguration.timestamp}}</span>
+                </dd>
+                <dt><span>Mesh Name</span></dt>
+                <dd>
+                    <span>{{networkConfiguration.meshName}}</span>
+                </dd>
+                <dt><span>Facility</span></dt>
+                <dd>
+                    <div *ngIf="networkConfiguration.facility">
+                        <a [routerLink]="['/facility-inn', networkConfiguration.facility?.id, 'view']">{{networkConfiguration.facility?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/network-configuration', networkConfiguration.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

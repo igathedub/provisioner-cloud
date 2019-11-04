@@ -9,8 +9,8 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IMeshGroupInn, MeshGroupInn } from 'app/shared/model/mesh-group-inn.model';
 import { MeshGroupInnService } from './mesh-group-inn.service';
-import { INetworkInn } from 'app/shared/model/network-inn.model';
-import { NetworkInnService } from 'app/entities/network-inn/network-inn.service';
+import { INetworkConfiguration } from 'app/shared/model/network-configuration.model';
+import { NetworkConfigurationService } from 'app/entities/network-configuration/network-configuration.service';
 
 @Component({
   selector: 'jhi-mesh-group-inn-update',
@@ -19,19 +19,20 @@ import { NetworkInnService } from 'app/entities/network-inn/network-inn.service'
 export class MeshGroupInnUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  networks: INetworkInn[];
+  networkconfigurations: INetworkConfiguration[];
 
   editForm = this.fb.group({
     id: [],
     name: [],
-    virtual: [],
-    network: []
+    address: [],
+    parentAddress: [],
+    networkConfiguration: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected meshGroupService: MeshGroupInnService,
-    protected networkService: NetworkInnService,
+    protected networkConfigurationService: NetworkConfigurationService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -41,21 +42,25 @@ export class MeshGroupInnUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ meshGroup }) => {
       this.updateForm(meshGroup);
     });
-    this.networkService
+    this.networkConfigurationService
       .query()
       .pipe(
-        filter((mayBeOk: HttpResponse<INetworkInn[]>) => mayBeOk.ok),
-        map((response: HttpResponse<INetworkInn[]>) => response.body)
+        filter((mayBeOk: HttpResponse<INetworkConfiguration[]>) => mayBeOk.ok),
+        map((response: HttpResponse<INetworkConfiguration[]>) => response.body)
       )
-      .subscribe((res: INetworkInn[]) => (this.networks = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe(
+        (res: INetworkConfiguration[]) => (this.networkconfigurations = res),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   updateForm(meshGroup: IMeshGroupInn) {
     this.editForm.patchValue({
       id: meshGroup.id,
       name: meshGroup.name,
-      virtual: meshGroup.virtual,
-      network: meshGroup.network
+      address: meshGroup.address,
+      parentAddress: meshGroup.parentAddress,
+      networkConfiguration: meshGroup.networkConfiguration
     });
   }
 
@@ -78,8 +83,9 @@ export class MeshGroupInnUpdateComponent implements OnInit {
       ...new MeshGroupInn(),
       id: this.editForm.get(['id']).value,
       name: this.editForm.get(['name']).value,
-      virtual: this.editForm.get(['virtual']).value,
-      network: this.editForm.get(['network']).value
+      address: this.editForm.get(['address']).value,
+      parentAddress: this.editForm.get(['parentAddress']).value,
+      networkConfiguration: this.editForm.get(['networkConfiguration']).value
     };
   }
 
@@ -99,7 +105,7 @@ export class MeshGroupInnUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackNetworkById(index: number, item: INetworkInn) {
+  trackNetworkConfigurationById(index: number, item: INetworkConfiguration) {
     return item.id;
   }
 }

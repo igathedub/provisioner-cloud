@@ -24,16 +24,22 @@ public class Element implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @Column(name = "index")
+    private Integer index;
+
+    @Column(name = "location")
+    private String location;
+
     @Column(name = "name")
     private String name;
-
-    @ManyToOne
-    @JsonIgnoreProperties("elements")
-    private Node node;
 
     @OneToMany(mappedBy = "element")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Model> models = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("elements")
+    private Node node;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -42,6 +48,32 @@ public class Element implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public Element index(Integer index) {
+        this.index = index;
+        return this;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Element location(String location) {
+        this.location = location;
+        return this;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getName() {
@@ -55,19 +87,6 @@ public class Element implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Node getNode() {
-        return node;
-    }
-
-    public Element node(Node node) {
-        this.node = node;
-        return this;
-    }
-
-    public void setNode(Node node) {
-        this.node = node;
     }
 
     public Set<Model> getModels() {
@@ -94,6 +113,19 @@ public class Element implements Serializable {
     public void setModels(Set<Model> models) {
         this.models = models;
     }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public Element node(Node node) {
+        this.node = node;
+        return this;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -116,6 +148,8 @@ public class Element implements Serializable {
     public String toString() {
         return "Element{" +
             "id=" + getId() +
+            ", index=" + getIndex() +
+            ", location='" + getLocation() + "'" +
             ", name='" + getName() + "'" +
             "}";
     }

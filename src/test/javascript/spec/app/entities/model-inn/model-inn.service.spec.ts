@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ModelInnService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new ModelInn(0, 'AAAAAAA', 0);
+      elemDefault = new ModelInn(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,8 +56,9 @@ describe('Service Tests', () => {
       it('should update a ModelInn', () => {
         const returnedFromService = Object.assign(
           {
-            name: 'BBBBBB',
-            uuid: 1
+            modelId: 'BBBBBB',
+            subscribe: 'BBBBBB',
+            bind: 'BBBBBB'
           },
           elemDefault
         );
@@ -75,8 +76,9 @@ describe('Service Tests', () => {
       it('should return a list of ModelInn', () => {
         const returnedFromService = Object.assign(
           {
-            name: 'BBBBBB',
-            uuid: 1
+            modelId: 'BBBBBB',
+            subscribe: 'BBBBBB',
+            bind: 'BBBBBB'
           },
           elemDefault
         );

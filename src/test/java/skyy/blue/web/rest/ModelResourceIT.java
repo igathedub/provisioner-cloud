@@ -33,11 +33,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ProvisionerCloudApp.class)
 public class ModelResourceIT {
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_MODEL_ID = "AAAAAAAAAA";
+    private static final String UPDATED_MODEL_ID = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_UUID = 1;
-    private static final Integer UPDATED_UUID = 2;
+    private static final String DEFAULT_SUBSCRIBE = "AAAAAAAAAA";
+    private static final String UPDATED_SUBSCRIBE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_BIND = "AAAAAAAAAA";
+    private static final String UPDATED_BIND = "BBBBBBBBBB";
 
     @Autowired
     private ModelRepository modelRepository;
@@ -81,8 +84,9 @@ public class ModelResourceIT {
      */
     public static Model createEntity(EntityManager em) {
         Model model = new Model()
-            .name(DEFAULT_NAME)
-            .uuid(DEFAULT_UUID);
+            .modelId(DEFAULT_MODEL_ID)
+            .subscribe(DEFAULT_SUBSCRIBE)
+            .bind(DEFAULT_BIND);
         return model;
     }
     /**
@@ -93,8 +97,9 @@ public class ModelResourceIT {
      */
     public static Model createUpdatedEntity(EntityManager em) {
         Model model = new Model()
-            .name(UPDATED_NAME)
-            .uuid(UPDATED_UUID);
+            .modelId(UPDATED_MODEL_ID)
+            .subscribe(UPDATED_SUBSCRIBE)
+            .bind(UPDATED_BIND);
         return model;
     }
 
@@ -118,8 +123,9 @@ public class ModelResourceIT {
         List<Model> modelList = modelRepository.findAll();
         assertThat(modelList).hasSize(databaseSizeBeforeCreate + 1);
         Model testModel = modelList.get(modelList.size() - 1);
-        assertThat(testModel.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testModel.getUuid()).isEqualTo(DEFAULT_UUID);
+        assertThat(testModel.getModelId()).isEqualTo(DEFAULT_MODEL_ID);
+        assertThat(testModel.getSubscribe()).isEqualTo(DEFAULT_SUBSCRIBE);
+        assertThat(testModel.getBind()).isEqualTo(DEFAULT_BIND);
     }
 
     @Test
@@ -153,8 +159,9 @@ public class ModelResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(model.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID)));
+            .andExpect(jsonPath("$.[*].modelId").value(hasItem(DEFAULT_MODEL_ID)))
+            .andExpect(jsonPath("$.[*].subscribe").value(hasItem(DEFAULT_SUBSCRIBE)))
+            .andExpect(jsonPath("$.[*].bind").value(hasItem(DEFAULT_BIND)));
     }
     
     @Test
@@ -168,8 +175,9 @@ public class ModelResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(model.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID));
+            .andExpect(jsonPath("$.modelId").value(DEFAULT_MODEL_ID))
+            .andExpect(jsonPath("$.subscribe").value(DEFAULT_SUBSCRIBE))
+            .andExpect(jsonPath("$.bind").value(DEFAULT_BIND));
     }
 
     @Test
@@ -193,8 +201,9 @@ public class ModelResourceIT {
         // Disconnect from session so that the updates on updatedModel are not directly saved in db
         em.detach(updatedModel);
         updatedModel
-            .name(UPDATED_NAME)
-            .uuid(UPDATED_UUID);
+            .modelId(UPDATED_MODEL_ID)
+            .subscribe(UPDATED_SUBSCRIBE)
+            .bind(UPDATED_BIND);
 
         restModelMockMvc.perform(put("/api/models")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -205,8 +214,9 @@ public class ModelResourceIT {
         List<Model> modelList = modelRepository.findAll();
         assertThat(modelList).hasSize(databaseSizeBeforeUpdate);
         Model testModel = modelList.get(modelList.size() - 1);
-        assertThat(testModel.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testModel.getUuid()).isEqualTo(UPDATED_UUID);
+        assertThat(testModel.getModelId()).isEqualTo(UPDATED_MODEL_ID);
+        assertThat(testModel.getSubscribe()).isEqualTo(UPDATED_SUBSCRIBE);
+        assertThat(testModel.getBind()).isEqualTo(UPDATED_BIND);
     }
 
     @Test

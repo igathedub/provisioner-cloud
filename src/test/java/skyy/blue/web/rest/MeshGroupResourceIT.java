@@ -36,8 +36,11 @@ public class MeshGroupResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final Boolean DEFAULT_VIRTUAL = false;
-    private static final Boolean UPDATED_VIRTUAL = true;
+    private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PARENT_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_PARENT_ADDRESS = "BBBBBBBBBB";
 
     @Autowired
     private MeshGroupRepository meshGroupRepository;
@@ -82,7 +85,8 @@ public class MeshGroupResourceIT {
     public static MeshGroup createEntity(EntityManager em) {
         MeshGroup meshGroup = new MeshGroup()
             .name(DEFAULT_NAME)
-            .virtual(DEFAULT_VIRTUAL);
+            .address(DEFAULT_ADDRESS)
+            .parentAddress(DEFAULT_PARENT_ADDRESS);
         return meshGroup;
     }
     /**
@@ -94,7 +98,8 @@ public class MeshGroupResourceIT {
     public static MeshGroup createUpdatedEntity(EntityManager em) {
         MeshGroup meshGroup = new MeshGroup()
             .name(UPDATED_NAME)
-            .virtual(UPDATED_VIRTUAL);
+            .address(UPDATED_ADDRESS)
+            .parentAddress(UPDATED_PARENT_ADDRESS);
         return meshGroup;
     }
 
@@ -119,7 +124,8 @@ public class MeshGroupResourceIT {
         assertThat(meshGroupList).hasSize(databaseSizeBeforeCreate + 1);
         MeshGroup testMeshGroup = meshGroupList.get(meshGroupList.size() - 1);
         assertThat(testMeshGroup.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testMeshGroup.isVirtual()).isEqualTo(DEFAULT_VIRTUAL);
+        assertThat(testMeshGroup.getAddress()).isEqualTo(DEFAULT_ADDRESS);
+        assertThat(testMeshGroup.getParentAddress()).isEqualTo(DEFAULT_PARENT_ADDRESS);
     }
 
     @Test
@@ -154,7 +160,8 @@ public class MeshGroupResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(meshGroup.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].virtual").value(hasItem(DEFAULT_VIRTUAL.booleanValue())));
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
+            .andExpect(jsonPath("$.[*].parentAddress").value(hasItem(DEFAULT_PARENT_ADDRESS)));
     }
     
     @Test
@@ -169,7 +176,8 @@ public class MeshGroupResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(meshGroup.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.virtual").value(DEFAULT_VIRTUAL.booleanValue()));
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
+            .andExpect(jsonPath("$.parentAddress").value(DEFAULT_PARENT_ADDRESS));
     }
 
     @Test
@@ -194,7 +202,8 @@ public class MeshGroupResourceIT {
         em.detach(updatedMeshGroup);
         updatedMeshGroup
             .name(UPDATED_NAME)
-            .virtual(UPDATED_VIRTUAL);
+            .address(UPDATED_ADDRESS)
+            .parentAddress(UPDATED_PARENT_ADDRESS);
 
         restMeshGroupMockMvc.perform(put("/api/mesh-groups")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -206,7 +215,8 @@ public class MeshGroupResourceIT {
         assertThat(meshGroupList).hasSize(databaseSizeBeforeUpdate);
         MeshGroup testMeshGroup = meshGroupList.get(meshGroupList.size() - 1);
         assertThat(testMeshGroup.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testMeshGroup.isVirtual()).isEqualTo(UPDATED_VIRTUAL);
+        assertThat(testMeshGroup.getAddress()).isEqualTo(UPDATED_ADDRESS);
+        assertThat(testMeshGroup.getParentAddress()).isEqualTo(UPDATED_PARENT_ADDRESS);
     }
 
     @Test

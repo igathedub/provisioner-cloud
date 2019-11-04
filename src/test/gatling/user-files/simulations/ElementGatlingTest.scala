@@ -72,6 +72,8 @@ class ElementGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
+                , "index":"0"
+                , "location":"SAMPLE_TEXT"
                 , "name":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
