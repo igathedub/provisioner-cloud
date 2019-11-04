@@ -1,0 +1,166 @@
+entity Customer {
+	name String,
+    address String
+}
+
+entity AppUser {
+	name String,
+    password String,
+    email String,
+    domain String
+}
+
+entity Facility {
+	name String,
+    streetAddress String,
+	postalCode String,
+	city String,
+	country String
+}
+
+entity Role {
+	name String,
+    description String
+}
+
+entity MeshGroup {
+	name String,
+    address String,
+    parentAddress String
+}
+
+entity AppKey {
+ key String,
+ name String,
+ boundNetKey Integer,
+ index Integer
+}
+
+entity NetKey {
+ phase Integer,
+ minSecurity String,
+ key String,
+ timestamp String,
+ name String,
+ index Integer
+}
+
+entity KeyIndex {
+	index Integer,
+    updated Boolean
+}
+
+entity Features {
+	proxy Integer,
+    friend Integer,
+    relay Integer,
+    lowPower Integer
+}
+
+entity Retransmit {
+	count Integer,
+    interval Integer
+}
+
+entity Publish {
+	index Integer,
+    credentials Integer,
+    ttl Integer,
+    retransmit Retransmit,
+    period Integer,
+    address String
+}
+
+entity Model {
+    modelId String,
+    subscribe String, //List<String>
+    bind String, //List<Integer>
+    publish Publish
+}
+
+entity Element {
+	index Integer,
+	location String,
+	model Model,
+	name String
+}
+
+entity AllocatedRange {
+    lowAddress String,
+    highAddress String
+}
+
+entity Node {
+	features Features,
+    element Element,
+    unicastAddress String,
+    configComplete Boolean,
+    netKey KeyIndex,
+    defaultTTL Integer,
+    cid String,
+    appKey KeyIndex,
+    blacklisted Boolean,
+    uUID String,
+    security String,
+    crpl String,
+    name String,
+    deviceKey String,
+    vid String,
+    pid String
+}
+
+entity Provisioner {
+    nallocatedGroupRange AllocatedRange,
+    nallocatedUnicastRange AllocatedRange,
+    uUID String,
+    provisionerName String,
+    nallocatedSceneRange AllocatedRange
+}
+
+entity NetworkConfiguration {
+	meshUUID String,
+    provisioner Provisioner,
+    node Node,
+	id String,
+    group MeshGroup,
+    netKey NetKey,
+    timestamp String,
+    meshName Integer,
+	appKey AppKey
+}
+
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Customer{facility} to Facility,
+	Customer{user} to AppUser,
+    AppUser{role} to Role,
+    Facility{network} to NetworkConfiguration,
+    NetworkConfiguration{provisioner} to Provisioner,
+    NetworkConfiguration{node} to Node,
+    NetworkConfiguration{group} to MeshGroup,
+    NetworkConfiguration{netKey} to NetKey,
+    NetworkConfiguration{appKey} to AppKey,
+    Provisioner{nallocatedGroupRange} to AllocatedRange,
+    Provisioner{nallocatedUnicastRange} to AllocatedRange,
+    Provisioner{nallocatedSceneRange} to AllocatedRange,
+    Node{element} to Element,
+    Node{netKey} to KeyIndex,
+    Node{appKey} to KeyIndex,
+    Element{model} to Model
+}
+
+relationship OneToOne {
+	Node to Features,
+    Model to Publish,
+	Publish to Retransmit
+}
+
+
+
+// Set pagination options
+paginate * with infinite-scroll
+
+
+// Set an angular suffix
+//angularSuffix * with inn
